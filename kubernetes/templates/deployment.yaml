@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "kubernetes.name" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "kubernetes.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.cerebroReplicaCount }}
+  template:
+    metadata:
+      labels:
+        app: cerebro
+    spec:
+      nodeSelector:
+        type: {{ .Values.cerebroNodeSelector }}
+      containers:
+      - name: cerebro
+        image: yannart/cerebro:{{ .Values.cerebroImageVersion }}
+        ports:
+        - containerPort: 9000
+          name: cerebro
+          protocol: TCP

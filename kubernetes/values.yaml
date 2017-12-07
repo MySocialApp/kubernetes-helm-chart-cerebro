@@ -1,0 +1,3 @@
+cerebroNodeSelector: workers
+cerebroImageVersion: 0.6.6
+cerebroReplicaCount: 1
