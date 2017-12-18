@@ -1,3 +1,4 @@
-cerebroNodeSelector: workers
+cerebroNodeSelector:
+  node-role.kubernetes.io/node: "true"
 cerebroImageVersion: 0.6.6
 cerebroReplicaCount: 1

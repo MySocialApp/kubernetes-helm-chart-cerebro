@@ -16,7 +16,9 @@ spec:
         app: cerebro
     spec:
       nodeSelector:
-        type: {{ .Values.cerebroNodeSelector }}
+        {{- range $key, $val := .Values.cerebroClientNodeSelector }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end}}
       containers:
       - name: cerebro
         image: yannart/cerebro:{{ .Values.cerebroImageVersion }}
