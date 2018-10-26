@@ -21,8 +21,18 @@ spec:
         {{- end}}
       containers:
       - name: cerebro
-        image: yannart/cerebro:{{ .Values.cerebroImageVersion }}
+        image: lmenezes/cerebro:{{ .Values.cerebroImageVersion }}
+        args: ["-Dconfig.file=/etc/cerebro/application.conf"]
         ports:
-        - containerPort: 9000
-          name: cerebro
+        - name: cerebro
+          containerPort: 9000
           protocol: TCP
+        volumeMounts:
+        - name: config
+          mountPath: /etc/cerebro
+        resources:
+{{ toYaml .Values.cerebroResources | indent 12 }}
+      volumes:
+      - name: config
+        configMap:
+          name: {{ template "kubernetes.name" . }}
