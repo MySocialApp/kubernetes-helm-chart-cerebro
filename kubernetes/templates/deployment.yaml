@@ -16,7 +16,7 @@ spec:
         app: cerebro
     spec:
       nodeSelector:
-        {{- range $key, $val := .Values.cerebroClientNodeSelector }}
+        {{- range $key, $val := .Values.cerebroNodeSelector }}
         {{ $key }}: {{ $val | quote }}
         {{- end}}
       containers:
